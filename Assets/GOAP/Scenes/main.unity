@@ -101,6 +101,7 @@ GameObject:
   - 114: {fileID: 323228430}
   - 114: {fileID: 323228429}
   - 114: {fileID: 323228436}
+  - 114: {fileID: 323228431}
   m_Layer: 0
   m_Name: Blacksmith
   m_TagString: Untagged
@@ -135,6 +136,20 @@ MonoBehaviour:
   cost: 1
   target: {fileID: 0}
   forgeDuration: 4
+--- !u!114 &323228431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 323228428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14a7b5ec646abcf4b96202d86612c912, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cost: 3
+  target: {fileID: 0}
+  miningDuration: 5
 --- !u!114 &323228432
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -534,6 +549,10 @@ Prefab:
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 89d4a2347bc39ff4aafa9398ae9049a2, type: 2}
+      propertyPath: numTools
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 89d4a2347bc39ff4aafa9398ae9049a2, type: 2}
   m_IsPrefabParent: 0
@@ -832,7 +851,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1584392511
 MonoBehaviour:
   m_ObjectHideFlags: 0
