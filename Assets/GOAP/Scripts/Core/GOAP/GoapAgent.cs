@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System;
 
 
-public sealed class GoapAgent : MonoBehaviour {
+public sealed class GoapAgent : MonoBehaviour,IAgent {
 
 	private FSM stateMachine;
 
@@ -35,33 +35,19 @@ public sealed class GoapAgent : MonoBehaviour {
 	
 
 	void Update () {
-        //check abort
-	    CheckAbortCmd();
-
 		stateMachine.Update (this.gameObject);
 	}
 
-    private void CheckAbortCmd()
-    {
-        if (dataProvider.NeedAbort)
-        {
-            AbortFsm();
-            dataProvider.NeedAbort = false;
-        }
-    }
-
-    private void AbortFsm()
+    public void AbortFsm()
     {
         stateMachine.ClearState();
         stateMachine.pushState(idleState);
     }
-
-
-    public void addAction(GoapAction a) {
+    public void AddAction(GoapAction a) {
 		availableActions.Add (a);
 	}
 
-	public GoapAction getAction(Type action) {
+	public GoapAction GetAction(Type action) {
 		foreach (GoapAction g in availableActions) {
 			if (g.GetType().Equals(action) )
 			    return g;
@@ -69,7 +55,7 @@ public sealed class GoapAgent : MonoBehaviour {
 		return null;
 	}
 
-	public void removeAction(GoapAction action) {
+	public void RemoveAction(GoapAction action) {
 		availableActions.Remove (action);
 	}
 
@@ -199,6 +185,7 @@ public sealed class GoapAgent : MonoBehaviour {
 		foreach (Component comp in gameObject.GetComponents(typeof(Component)) ) {
 			if ( typeof(IGoap).IsAssignableFrom(comp.GetType()) ) {
 				dataProvider = (IGoap)comp;
+			    dataProvider.Agent = this;
 				return;
 			}
 		}

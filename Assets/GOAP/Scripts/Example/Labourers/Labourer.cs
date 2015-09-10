@@ -17,20 +17,13 @@ public abstract class Labourer : MonoBehaviour, IGoap
 
 	void Start ()
 	{
-		if (backpack == null)
-			backpack = gameObject.AddComponent <BackpackComponent>( ) as BackpackComponent;
-		if (backpack.tool == null) {
-			GameObject prefab = Resources.Load<GameObject> (backpack.toolType);
-			GameObject tool = Instantiate (prefab, transform.position, transform.rotation) as GameObject;
-			backpack.tool = tool;
-			tool.transform.parent = transform; // attach the tool
-		}
+        Init();
 	}
 
 
 	void Update ()
 	{
-
+        Tick();
 	}
 
 	/**
@@ -93,10 +86,27 @@ public abstract class Labourer : MonoBehaviour, IGoap
 			return false;
 	}
 
-    public virtual bool NeedAbort
+    public virtual void Init()
     {
-        get { return false; }
-        set {  }
+        if (backpack == null)
+            backpack = gameObject.AddComponent<BackpackComponent>() as BackpackComponent;
+        if (backpack.tool == null)
+        {
+            GameObject prefab = Resources.Load<GameObject>(backpack.toolType);
+            GameObject tool = Instantiate(prefab, transform.position, transform.rotation) as GameObject;
+            backpack.tool = tool;
+            tool.transform.parent = transform; // attach the tool
+        }
     }
+
+    public virtual void Tick()
+    {
+    }
+
+    public virtual void Release()
+    {
+    }
+
+    public IAgent Agent { get; set; }
 }
 

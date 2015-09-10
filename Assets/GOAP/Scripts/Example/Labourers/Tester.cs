@@ -4,9 +4,7 @@ using System.Collections.Generic;
 
 public class Tester : Labourer
 {
-    public bool EnableCellectTools;
-
-    public bool SetNeedAbort;
+    public bool EnableCollectTools;
 
     /**
      * Our only goal will ever be to make tools.
@@ -15,14 +13,19 @@ public class Tester : Labourer
     public override HashSet<KeyValuePair<string, object>> createGoalState()
     {
         HashSet<KeyValuePair<string, object>> goal = new HashSet<KeyValuePair<string, object>>();
-        if (EnableCellectTools)
+        if (EnableCollectTools)
             goal.Add(new KeyValuePair<string, object>("collectTools", true));
         return goal;
     }
 
-    public override bool NeedAbort
+    public override void Tick()
     {
-        get { return SetNeedAbort; }
-        set { SetNeedAbort = value; }
+        if (NeedAbort)
+        {
+            Agent.AbortFsm();
+            NeedAbort = false;
+        }
     }
+
+    public bool NeedAbort;
 }

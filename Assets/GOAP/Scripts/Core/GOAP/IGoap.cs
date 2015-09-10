@@ -61,9 +61,13 @@ public interface IGoap
 	 */
 	bool moveAgent(GoapAction nextAction);
 
+    void Init();
+    void Tick();
+    void Release();
+
     /// <summary>
-    /// Need abort current plan
+    /// save agent instance
     /// </summary>
-    bool NeedAbort { get; set; }
+    IAgent Agent { get; set; } 
 }
 
