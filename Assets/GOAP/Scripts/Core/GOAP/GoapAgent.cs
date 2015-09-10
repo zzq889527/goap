@@ -35,11 +35,29 @@ public sealed class GoapAgent : MonoBehaviour {
 	
 
 	void Update () {
+        //check abort
+	    CheckAbortCmd();
+
 		stateMachine.Update (this.gameObject);
 	}
 
+    private void CheckAbortCmd()
+    {
+        if (dataProvider.NeedAbort)
+        {
+            AbortFsm();
+            dataProvider.NeedAbort = false;
+        }
+    }
 
-	public void addAction(GoapAction a) {
+    private void AbortFsm()
+    {
+        stateMachine.ClearState();
+        stateMachine.pushState(idleState);
+    }
+
+
+    public void addAction(GoapAction a) {
 		availableActions.Add (a);
 	}
 

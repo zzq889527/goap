@@ -131,7 +131,8 @@ public class GoapPlanner
 	 * then this returns false.
 	 */
 	private bool inState(HashSet<KeyValuePair<string,object>> test, HashSet<KeyValuePair<string,object>> state) {
-		bool allMatch = true;
+        //if no goal, make plan fail.
+        bool allMatch = test.Count != 0;
 		foreach (KeyValuePair<string,object> t in test) {
 			bool match = false;
 			foreach (KeyValuePair<string,object> s in state) {

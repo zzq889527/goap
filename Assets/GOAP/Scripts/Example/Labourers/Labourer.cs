@@ -92,5 +92,11 @@ public abstract class Labourer : MonoBehaviour, IGoap
 		} else
 			return false;
 	}
+
+    public virtual bool NeedAbort
+    {
+        get { return false; }
+        set {  }
+    }
 }
 

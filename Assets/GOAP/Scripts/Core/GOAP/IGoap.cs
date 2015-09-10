@@ -60,5 +60,10 @@ public interface IGoap
 	 * False if it is not there yet.
 	 */
 	bool moveAgent(GoapAction nextAction);
+
+    /// <summary>
+    /// Need abort current plan
+    /// </summary>
+    bool NeedAbort { get; set; }
 }
 

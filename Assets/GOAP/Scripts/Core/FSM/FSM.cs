@@ -31,4 +31,9 @@ public class FSM {
 	public void popState() {
 		stateStack.Pop ();
 	}
+
+    public void ClearState()
+    {
+        stateStack.Clear();
+    }
 }
