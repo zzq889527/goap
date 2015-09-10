@@ -13,9 +13,10 @@ public class Tester : Labourer
     public override HashSet<KeyValuePair<string, object>> createGoalState()
     {
         HashSet<KeyValuePair<string, object>> goal = new HashSet<KeyValuePair<string, object>>();
-        goal.Add(new KeyValuePair<string, object>("walkaround", true));
         if (EnableCollectTools)
             goal.Add(new KeyValuePair<string, object>("collectTools", true));
+        else
+            goal.Add(new KeyValuePair<string, object>("walkaround", true));
         return goal;
     }
 
