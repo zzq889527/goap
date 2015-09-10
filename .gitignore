@@ -20,3 +20,7 @@ dist/
 
 # Unity3D Generated File On Crash Reports
 sysinfo.txt
+
+#UnityVS
+/Assets/UnityVS/
+/Assets/UnityVS.meta
