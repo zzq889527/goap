@@ -13,6 +13,7 @@ public class Tester : Labourer
     public override HashSet<KeyValuePair<string, object>> createGoalState()
     {
         HashSet<KeyValuePair<string, object>> goal = new HashSet<KeyValuePair<string, object>>();
+        goal.Add(new KeyValuePair<string, object>("walkaround", true));
         if (EnableCollectTools)
             goal.Add(new KeyValuePair<string, object>("collectTools", true));
         return goal;
@@ -25,7 +26,24 @@ public class Tester : Labourer
             Agent.AbortFsm();
             NeedAbort = false;
         }
+
+        if (AddWalk)
+        {
+            WalkaroundAction walk = gameObject.AddComponent<WalkaroundAction>();
+            Agent.AddAction(walk);
+            AddWalk = false;
+        }
+        if (RemoveWalk)
+        {
+            WalkaroundAction walk = gameObject.GetComponent<WalkaroundAction>();
+            Agent.RemoveAction(walk);
+            Destroy(walk);
+            RemoveWalk = false;
+        }
     }
 
     public bool NeedAbort;
+
+    public bool AddWalk;
+    public bool RemoveWalk;
 }
