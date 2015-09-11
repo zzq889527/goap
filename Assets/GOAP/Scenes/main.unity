@@ -121,7 +121,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   backpack: {fileID: 186045666}
-  moveSpeed: 2
+  moveSpeed: 3
+  EnableCollectTools: 1
+  NeedAbort: 0
+  AddWalk: 0
+  RemoveWalk: 0
 --- !u!114 &186045662
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133,7 +137,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14a7b5ec646abcf4b96202d86612c912, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: 3
+  Cost: 1
+  Risk: 0
+  Return: 1
   target: {fileID: 0}
   miningDuration: 5
 --- !u!114 &186045663
@@ -147,7 +153,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b66328ed32b74be49aa5c34df0496b25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: 1
+  Cost: 1
+  Risk: 0
+  Return: 1
   target: {fileID: 0}
 --- !u!114 &186045664
 MonoBehaviour:
@@ -160,7 +168,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2b43c1dc4955734cafcb9e737d3c0f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: 1
+  Cost: 1
+  Risk: 0
+  Return: 1
   target: {fileID: 0}
 --- !u!114 &186045665
 MonoBehaviour:
@@ -173,7 +183,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 625f9dede3d749b49a5ca33901e4e61c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: 1
+  Cost: 1
+  Risk: 0
+  Return: 1
   target: {fileID: 0}
   forgeDuration: 4
 --- !u!114 &186045666
@@ -249,7 +261,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2b43c1dc4955734cafcb9e737d3c0f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: 1
+  Cost: 1
+  Risk: 0
+  Return: 1
   target: {fileID: 0}
 --- !u!114 &323228430
 MonoBehaviour:
@@ -262,7 +276,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 625f9dede3d749b49a5ca33901e4e61c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: 1
+  Cost: 1
+  Risk: 0
+  Return: 1
   target: {fileID: 0}
   forgeDuration: 4
 --- !u!114 &323228431
@@ -276,7 +292,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14a7b5ec646abcf4b96202d86612c912, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: 3
+  Cost: 1
+  Risk: 0
+  Return: 1
   target: {fileID: 0}
   miningDuration: 5
 --- !u!114 &323228432
@@ -343,7 +361,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b66328ed32b74be49aa5c34df0496b25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: 1
+  Cost: 1
+  Risk: 0
+  Return: 1
   target: {fileID: 0}
 --- !u!1 &407523308
 GameObject:
@@ -450,7 +470,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1c69cc84e4f6fe4abc42a4099854004, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: 1
+  Cost: 1
+  Risk: 0
+  Return: 1
   target: {fileID: 0}
 --- !u!114 &493275374
 MonoBehaviour:
@@ -463,7 +485,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2da042e9c4fc84242b21f2a52d63e14b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: 1
+  Cost: 1
+  Risk: 0
+  Return: 1
   target: {fileID: 0}
 --- !u!114 &493275375
 MonoBehaviour:
@@ -476,7 +500,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ad670a48e3f0b1499f2b11d1020a562, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: 1
+  Cost: 1
+  Risk: 0
+  Return: 1
   target: {fileID: 0}
   workDuration: 4
 --- !u!114 &493275377
@@ -755,7 +781,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1c69cc84e4f6fe4abc42a4099854004, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: 1
+  Cost: 1
+  Risk: 0
+  Return: 1
   target: {fileID: 0}
 --- !u!114 &1125186930
 MonoBehaviour:
@@ -768,7 +796,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f8d527fff8b83b4496bdd018f6b3dba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: 1
+  Cost: 1
+  Risk: 0
+  Return: 1
   target: {fileID: 0}
 --- !u!114 &1125186931
 MonoBehaviour:
@@ -781,7 +811,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce9c3d140dd937a438a3c471ef37288e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: 1
+  Cost: 1
+  Risk: 0
+  Return: 1
   target: {fileID: 0}
   workDuration: 2
 --- !u!114 &1125186933
@@ -1118,7 +1150,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 384560705fac9154ab4995bd5b2fa258, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: 1
+  Cost: 1
+  Risk: 0
+  Return: 1
   target: {fileID: 0}
 --- !u!114 &1584392516
 MonoBehaviour:
@@ -1131,7 +1165,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e96fe49944c7a594d9fabe16b6c4a20d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: 1
+  Cost: 1
+  Risk: 0
+  Return: 1
   target: {fileID: 0}
   miningDuration: 3
 --- !u!114 &1584392517
@@ -1145,7 +1181,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1c69cc84e4f6fe4abc42a4099854004, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: 1
+  Cost: 1
+  Risk: 0
+  Return: 1
   target: {fileID: 0}
 --- !u!1 &1721141299
 GameObject:

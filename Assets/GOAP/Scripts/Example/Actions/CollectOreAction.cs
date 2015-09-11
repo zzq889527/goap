@@ -71,12 +71,6 @@ public class CollectOreAction : GoapAction
 			BackpackComponent backpack = (BackpackComponent)agent.GetComponent(typeof(BackpackComponent));
 			backpack.numOre += 2;
 			mined = true;
-			ToolComponent tool = backpack.tool.GetComponent(typeof(ToolComponent)) as ToolComponent;
-			tool.use(0.5f);
-			if (tool.destroyed()) {
-				Destroy(backpack.tool);
-				backpack.tool = null;
-			}
 		}
 		return true;
 	}

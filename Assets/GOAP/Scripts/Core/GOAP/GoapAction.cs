@@ -10,10 +10,24 @@ public abstract class GoapAction : MonoBehaviour {
 
 	private bool inRange = false;
 
-	/* The cost of performing the action. 
+	/* The Cost of performing the action. 
 	 * Figure out a weight that suits the action. 
 	 * Changing it will affect what actions are chosen during planning.*/
-	public float cost = 1f;
+    public float Cost = 1f;
+    public virtual float GetCost()
+    {
+        return Cost;
+    }
+
+    /* The risk of performing the action. */
+    public float Risk = 0f;
+    /* The Benefits of performing the action. */
+    public float Return = 1f;
+    /* Figure out a weight that suits the action. */
+    public virtual float GetWeight()
+    {
+        return (1 - Risk) * Return;
+    }
 
 	/**
 	 * An action often has to perform on an object. This is that object. Can be null. */

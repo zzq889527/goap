@@ -36,7 +36,7 @@ public class GoapPlanner
 		List<Node> leaves = new List<Node>();
 
 		// build graph
-		Node start = new Node (null, 0, worldState, null);
+		Node start = new Node (null, 0,0, worldState, null);
 		bool success = buildGraph(start, leaves, usableActions, goal);
 
 		if (!success) {
@@ -51,7 +51,7 @@ public class GoapPlanner
 			if (cheapest == null)
 				cheapest = leaf;
 			else {
-				if (leaf.runningCost < cheapest.runningCost)
+                if(leaf.BetterThen(cheapest))
 					cheapest = leaf;
 			}
 		}
@@ -79,7 +79,7 @@ public class GoapPlanner
 	/**
 	 * Returns true if at least one solution was found.
 	 * The possible paths are stored in the leaves list. Each leaf has a
-	 * 'runningCost' value where the lowest cost will be the best action
+	 * 'runningCost' value where the lowest Cost will be the best action
 	 * sequence.
 	 */
 	private bool buildGraph (Node parent, List<Node> leaves, HashSet<GoapAction> usableActions, HashSet<KeyValuePair<string, object>> goal)
@@ -95,7 +95,7 @@ public class GoapPlanner
 				// apply the action's effects to the parent state
 				HashSet<KeyValuePair<string,object>> currentState = populateState (parent.state, action.Effects);
 				//Debug.Log(GoapAgent.prettyPrint(currentState));
-				Node node = new Node(parent, parent.runningCost+action.cost, currentState, action);
+                Node node = new Node(parent, parent.runningCost + action.GetCost(), parent.weight + action.GetWeight(), currentState, action);
 
 				if (inState(goal, currentState)) {
 					// we found a solution!
@@ -186,15 +186,36 @@ public class GoapPlanner
 	private class Node {
 		public Node parent;
 		public float runningCost;
+	    public float weight;
 		public HashSet<KeyValuePair<string,object>> state;
 		public GoapAction action;
 
-		public Node(Node parent, float runningCost, HashSet<KeyValuePair<string,object>> state, GoapAction action) {
+		public Node(Node parent, float runningCost,float weight, HashSet<KeyValuePair<string,object>> state, GoapAction action) {
 			this.parent = parent;
 			this.runningCost = runningCost;
+		    this.weight = weight;
 			this.state = state;
 			this.action = action;
 		}
+
+        /// <summary>
+        /// compare node
+        /// </summary>
+        /// <param name="cheapest"></param>
+        /// <returns></returns>
+	    public bool BetterThen(Node rh)
+        {
+            if (weight > rh.weight && runningCost < rh.runningCost)
+                return true;
+            else if (weight < rh.weight && runningCost > rh.runningCost)
+                return false;
+            else
+            {
+                //make weight > cost
+                bool better = (weight / rh.weight - 1) >= (runningCost / rh.runningCost -1);
+                return better;
+            }
+        }
 	}
 
 }
