@@ -49,11 +49,11 @@ public class Brain : MonoBehaviour,IBrain
 
     private bool NeedMind()
     {
-        return Mind < 50;
+        return Mind < 80;
     }
 
     public bool NeedHunger()
     {
-        return Hunger < 50;
+        return Hunger < 80;
     }
 }

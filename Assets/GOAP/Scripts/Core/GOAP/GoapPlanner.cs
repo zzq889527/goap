@@ -97,6 +97,11 @@ public class GoapPlanner
 				//Debug.Log(GoapAgent.prettyPrint(currentState));
                 Node node = new Node(parent, parent.runningCost + action.GetCost(), parent.weight + action.GetWeight(), currentState, action);
 
+                //force child.precondition in parent.effects or child.precondition is empty.
+			    if (action.Preconditions.Count == 0 && parent.action != null || 
+                    parent.action!= null && !inState(action.Preconditions, parent.action.Effects) )
+			        continue;
+
 				if (inState(goal, currentState)) {
 					// we found a solution!
 					leaves.Add(node);
@@ -205,7 +210,7 @@ public class GoapPlanner
         /// <returns></returns>
 	    public bool BetterThen(Node rh)
         {
-            return runningCost < rh.runningCost;
+//            return runningCost < rh.runningCost;
             if (weight > rh.weight && runningCost < rh.runningCost)
                 return true;
             else if (weight < rh.weight && runningCost > rh.runningCost)
