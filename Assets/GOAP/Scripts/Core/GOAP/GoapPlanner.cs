@@ -205,6 +205,7 @@ public class GoapPlanner
         /// <returns></returns>
 	    public bool BetterThen(Node rh)
         {
+            return runningCost < rh.runningCost;
             if (weight > rh.weight && runningCost < rh.runningCost)
                 return true;
             else if (weight < rh.weight && runningCost > rh.runningCost)

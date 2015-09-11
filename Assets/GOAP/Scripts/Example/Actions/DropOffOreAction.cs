@@ -10,7 +10,8 @@ public class DropOffOreAction : GoapAction
 	public DropOffOreAction () {
 		addPrecondition ("hasOre", true); // can't drop off ore if we don't already have some
 		addEffect ("hasOre", false); // we now have no ore
-		addEffect ("collectOre", true); // we collected ore
+        addEffect("collectOre", true); // we collected ore
+        addEffect(Goals.FillOther, true); // we collected ore
 	}
 	
 	

@@ -13,7 +13,7 @@ public abstract class Labourer : MonoBehaviour, IGoap
 {
 	public BackpackComponent backpack;
 	public float moveSpeed = 1;
-
+    public bool EnableLog = false;
 
 	void Start ()
 	{
@@ -35,7 +35,8 @@ public abstract class Labourer : MonoBehaviour, IGoap
 		worldData.Add(new KeyValuePair<string, object>("hasOre", (backpack.numOre > 0) ));
 		worldData.Add(new KeyValuePair<string, object>("hasLogs", (backpack.numLogs > 0) ));
 		worldData.Add(new KeyValuePair<string, object>("hasFirewood", (backpack.numFirewood > 0) ));
-		worldData.Add(new KeyValuePair<string, object>("hasTool", (backpack.tool != null) ));
+        worldData.Add(new KeyValuePair<string, object>("hasTool", (backpack.tool != null)));
+	    Brain.UpdateWorldData(worldData);
 
 		return worldData;
 	}
@@ -56,13 +57,15 @@ public abstract class Labourer : MonoBehaviour, IGoap
 	public void planFound (HashSet<KeyValuePair<string, object>> goal, Queue<GoapAction> actions)
 	{
 		// Yay we found a plan for our goal
-		Debug.Log ("<color=green>Plan found</color> "+GoapAgent.prettyPrint(actions));
+        if (EnableLog)
+		    Debug.Log ("<color=green>Plan found</color> "+GoapAgent.prettyPrint(actions));
 	}
 
 	public void actionsFinished ()
 	{
 		// Everything is done, we completed our actions for this gool. Hooray!
-		Debug.Log ("<color=blue>Actions completed</color>");
+        if (EnableLog)
+            Debug.Log("<color=blue>Actions completed</color>");
 	}
 
 	public void planAborted (GoapAction aborter)
@@ -70,7 +73,8 @@ public abstract class Labourer : MonoBehaviour, IGoap
 		// An action bailed out of the plan. State has been reset to plan again.
 		// Take note of what happened and make sure if you run the same goal again
 		// that it can succeed.
-		Debug.Log ("<color=red>Plan Aborted</color> "+GoapAgent.prettyPrint(aborter));
+        if (EnableLog)
+            Debug.Log("<color=red>Plan Aborted</color> " + GoapAgent.prettyPrint(aborter));
 	}
 
 	public bool moveAgent(GoapAction nextAction) {
@@ -97,16 +101,24 @@ public abstract class Labourer : MonoBehaviour, IGoap
             backpack.tool = tool;
             tool.transform.parent = transform; // attach the tool
         }
+
+        if (Brain == null)
+            Brain = gameObject.AddComponent<Brain>();
+        Brain.Init();
     }
 
     public virtual void Tick()
     {
+        Brain.Tick();
     }
 
     public virtual void Release()
     {
+        Brain.Release();
     }
 
     public IAgent Agent { get; set; }
+
+    public IBrain Brain { get; set; }
 }
 
