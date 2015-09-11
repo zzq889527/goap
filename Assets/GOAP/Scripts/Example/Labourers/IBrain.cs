@@ -8,5 +8,4 @@ public interface IBrain
     void Tick();
     void Release();
     string NextGoal();
-    void UpdateWorldData(HashSet<KeyValuePair<string, object>> worldData);
 }

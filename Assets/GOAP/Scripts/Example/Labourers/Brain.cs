@@ -49,14 +49,6 @@ public class Brain : MonoBehaviour,IBrain
             return Goals.FillOther;
     }
 
-    public void UpdateWorldData(HashSet<KeyValuePair<string, object>> worldData)
-    {
-        if (NeedMind())
-            worldData.Add(new KeyValuePair<string, object>(Goals.NeedMind, NeedMind()));
-        if (NeedHunger())
-            worldData.Add(new KeyValuePair<string, object>(Goals.NeedHunger, NeedHunger()));
-    }
-
     private bool NeedMind()
     {
         return Mind < 50;

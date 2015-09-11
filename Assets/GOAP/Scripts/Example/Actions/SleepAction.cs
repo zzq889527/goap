@@ -10,7 +10,6 @@ public class SleepAction : GoapAction
     public float workDuration = 3; // seconds
     public SleepAction()
     {
-        addPrecondition(Goals.NeedMind, true);
 		addEffect (Goals.FillMind, true);
 	}
     public override void reset()

@@ -10,7 +10,6 @@ public class EatAppleAction : GoapAction
     public float workDuration = 2; // seconds
     public EatAppleAction()
     {
-        addPrecondition(Goals.NeedHunger, true);
 		addEffect (Goals.FillHunger, true);
 	}
     public override void reset()

@@ -36,7 +36,6 @@ public abstract class Labourer : MonoBehaviour, IGoap
 		worldData.Add(new KeyValuePair<string, object>("hasLogs", (backpack.numLogs > 0) ));
 		worldData.Add(new KeyValuePair<string, object>("hasFirewood", (backpack.numFirewood > 0) ));
         worldData.Add(new KeyValuePair<string, object>("hasTool", (backpack.tool != null)));
-	    Brain.UpdateWorldData(worldData);
 
 		return worldData;
 	}
