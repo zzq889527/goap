@@ -10,9 +10,7 @@ public class Tester : Labourer
      */
     public override HashSet<KeyValuePair<string, object>> createGoalState()
     {
-        HashSet<KeyValuePair<string, object>> goal = new HashSet<KeyValuePair<string, object>>();
-        goal.Add(new KeyValuePair<string, object>(Brain.NextGoal(), true));
-        return goal;
+        return Brain.NextGoal();
     }
 
     public override void Tick()

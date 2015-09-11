@@ -7,5 +7,5 @@ public interface IBrain
     void Init();
     void Tick();
     void Release();
-    string NextGoal();
+    HashSet<KeyValuePair<string, object>> NextGoal();
 }
