@@ -6,9 +6,7 @@ using Random = UnityEngine.Random;
 
 public class Goals
 {
-    public static string NeedHunger = "NeedHunger";
     public static string FillHunger = "FillHunger";
-    public static string NeedMind = "NeedMind";
     public static string FillMind = "FillMind";
     public static string FillOther = "FillOther";
 }
