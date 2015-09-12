@@ -511,9 +511,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 078b1cbc42e276b4b9ba45d48c9b4915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  backpack: {fileID: 323228432}
-  moveSpeed: 2
-  EnableLog: 0
 --- !u!4 &323228435
 Transform:
   m_ObjectHideFlags: 0
@@ -721,9 +718,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19462a6c515617d478b45ce0a5e943cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  backpack: {fileID: 493275377}
-  moveSpeed: 2
-  EnableLog: 0
 --- !u!4 &493275380
 Transform:
   m_ObjectHideFlags: 0
@@ -1034,9 +1028,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f61e62b578f8ae94c9c371d9dafc33ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  backpack: {fileID: 1125186933}
-  moveSpeed: 2
-  EnableLog: 0
 --- !u!4 &1125186936
 Transform:
   m_ObjectHideFlags: 0
@@ -1306,9 +1297,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f53af1a91e24d0c47966d6754ccec5af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  backpack: {fileID: 1584392511}
-  moveSpeed: 1.25
-  EnableLog: 0
 --- !u!4 &1584392514
 Transform:
   m_ObjectHideFlags: 0

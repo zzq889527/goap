@@ -35,10 +35,10 @@ public class GoapPlanner
         // we now have all actions that can run, stored in usableActions
 
         // build up the tree and record the leaf nodes that provide a solution to the goal.
-        var leaves = new List<Node>();
+        var leaves = new List<GoapNode>();
 
         // build graph
-        var start = new Node(null, 0, 0, worldState, null);
+        var start = NodeManager.GetFreeNode(null, 0, 0, worldState, null);
         var success = buildGraph(start, leaves, usableActions, goal);
 
         if (!success)
@@ -49,7 +49,7 @@ public class GoapPlanner
         }
 
         // get the cheapest leaf
-        Node cheapest = null;
+        GoapNode cheapest = null;
         foreach (var leaf in leaves)
         {
             if (cheapest == null)
@@ -72,6 +72,8 @@ public class GoapPlanner
             }
             n = n.parent;
         }
+
+        NodeManager.ReleaseNode(leaves);
         // we now have this action list in correct order
 
         var queue = new Queue<GoapAction>();
@@ -91,7 +93,7 @@ public class GoapPlanner
 	 * sequence.
 	 */
 
-    private bool buildGraph(Node parent, List<Node> leaves
+    private bool buildGraph(GoapNode parent, List<GoapNode> leaves
         , HashSet<GoapAction> usableActions, KeyValuePair<string, bool> goal)
     {
         var foundOne = false;
@@ -105,7 +107,7 @@ public class GoapPlanner
                 // apply the action's effects to the parent state
                 var currentState = populateState(parent.state, action.Effects);
                 //Debug.Log(GoapAgent.prettyPrint(currentState));
-                var node = new Node(parent, parent.runningCost + action.GetCost(), parent.weight + action.GetWeight(),
+                var node = NodeManager.GetFreeNode(parent, parent.runningCost + action.GetCost(), parent.weight + action.GetWeight(),
                     currentState, action);
 
                 //force child.precondition in parent.effects or child.precondition is empty.
@@ -207,43 +209,4 @@ public class GoapPlanner
         return state;
     }
 
-    /**
-	 * Used for building up the graph and holding the running costs of actions.
-	 */
-
-    private class Node
-    {
-        public readonly GoapAction action;
-        public readonly Node parent;
-        public readonly float runningCost;
-        public readonly Dictionary<string, bool> state;
-        public readonly float weight;
-
-        public Node(Node parent, float runningCost, float weight, Dictionary<string, bool> state,
-            GoapAction action)
-        {
-            this.parent = parent;
-            this.runningCost = runningCost;
-            this.weight = weight;
-            this.state = state;
-            this.action = action;
-        }
-
-        /// <summary>
-        ///     compare node
-        /// </summary>
-        /// <param name="cheapest"></param>
-        /// <returns></returns>
-        public bool BetterThen(Node rh)
-        {
-//            return runningCost < rh.runningCost;
-            if (weight > rh.weight && runningCost < rh.runningCost)
-                return true;
-            if (weight < rh.weight && runningCost > rh.runningCost)
-                return false;
-            //make weight > cost
-            var better = (weight/rh.weight - 1) >= (runningCost/rh.runningCost - 1);
-            return better;
-        }
-    }
 }
