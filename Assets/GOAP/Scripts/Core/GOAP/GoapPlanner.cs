@@ -15,7 +15,7 @@ public class GoapPlanner
 
     public Queue<GoapAction> plan(GameObject agent,
         HashSet<GoapAction> availableActions,
-        HashSet<KeyValuePair<string, object>> worldState,
+        Dictionary<string, bool> worldState,
         KeyValuePair<string, bool> goal)
     {
         // reset the actions so we can start fresh with them
@@ -134,25 +134,16 @@ public class GoapPlanner
     }
 
     //if there is one true relationship
-    private bool CondRelation(HashSet<KeyValuePair<string, object>> preconditions
-                            , HashSet<KeyValuePair<string, object>> effects)
+    private bool CondRelation(Dictionary<string, bool> preconditions
+                            , Dictionary<string, bool> effects)
     {
-        var allMatch = false;
         foreach (var t in preconditions)
         {
-            var match = false;
-            foreach (var s in effects)
-            {
-                if (s.Equals(t))
-                {
-                    match = true;
-                    break;
-                }
-            }
+            var match = effects.ContainsKey(t.Key) && effects[t.Key] == t.Value;
             if (match)
                 return true;
         }
-        return allMatch;
+        return false;
     }
 
     /**
@@ -175,36 +166,20 @@ public class GoapPlanner
 	 * then this returns false.
 	 */
 
-    private bool inState(HashSet<KeyValuePair<string, object>> test, HashSet<KeyValuePair<string, object>> state)
+    private bool inState(Dictionary<string, bool> test, Dictionary<string, bool> state)
     {
         var allMatch = true;
         foreach (var t in test)
         {
-            var match = false;
-            foreach (var s in state)
-            {
-                if (s.Equals(t))
-                {
-                    match = true;
-                    break;
-                }
-            }
+            var match = state.ContainsKey(t.Key) && state[t.Key] == t.Value;
             if (!match)
                 allMatch = false;
         }
         return allMatch;
     }
-    private bool FillGoal(KeyValuePair<string, bool> goal, HashSet<KeyValuePair<string, object>> state)
+    private bool FillGoal(KeyValuePair<string, bool> goal, Dictionary<string, bool> state)
     {
-        var match = false;
-        foreach (var s in state)
-        {
-            if (s.Key == goal.Key && (bool)s.Value == goal.Value)
-            {
-                match = true;
-                break;
-            }
-        }
+        var match = state.ContainsKey(goal.Key) && state[goal.Key] == goal.Value;
         return match;
     }
 
@@ -212,40 +187,21 @@ public class GoapPlanner
 	 * Apply the stateChange to the currentState
 	 */
 
-    private HashSet<KeyValuePair<string, object>> populateState(HashSet<KeyValuePair<string, object>> currentState,
-        HashSet<KeyValuePair<string, object>> stateChange)
+    private Dictionary<string, bool> populateState(Dictionary<string, bool> currentState,
+        Dictionary<string, bool> stateChange)
     {
-        HashSet<KeyValuePair<string, object>> state = new HashSet<KeyValuePair<string, object>>();
-        // copy the KVPs over as new objects
-        foreach (var s in currentState)
-        {
-            state.Add(new KeyValuePair<string, object>(s.Key, s.Value));
-        }
+        Dictionary<string, bool> state = new Dictionary<string, bool>(currentState);
 
         foreach (var change in stateChange)
         {
             // if the key exists in the current state, update the Value
-            var exists = false;
-
-            foreach (var s in state)
+            if (state.ContainsKey(change.Key))
             {
-                if (s.Equals(change))
-                {
-                    exists = true;
-                    break;
-                }
+                state[change.Key] = change.Value;
             }
-
-            if (exists)
-            {
-                state.RemoveWhere((KeyValuePair<string, object> kvp) => { return kvp.Key.Equals(change.Key); });
-                var updated = new KeyValuePair<string, object>(change.Key, change.Value);
-                state.Add(updated);
-            }
-            // if it does not exist in the current state, add it
             else
             {
-                state.Add(new KeyValuePair<string, object>(change.Key, change.Value));
+                state.Add(change.Key,change.Value);
             }
         }
         return state;
@@ -260,10 +216,10 @@ public class GoapPlanner
         public readonly GoapAction action;
         public readonly Node parent;
         public readonly float runningCost;
-        public readonly HashSet<KeyValuePair<string, object>> state;
+        public readonly Dictionary<string, bool> state;
         public readonly float weight;
 
-        public Node(Node parent, float runningCost, float weight, HashSet<KeyValuePair<string, object>> state,
+        public Node(Node parent, float runningCost, float weight, Dictionary<string, bool> state,
             GoapAction action)
         {
             this.parent = parent;

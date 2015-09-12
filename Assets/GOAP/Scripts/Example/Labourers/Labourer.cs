@@ -26,17 +26,17 @@ public abstract class Labourer : MonoBehaviour, IGoap
         Tick();
 	}
 
+    Dictionary<string, bool> worldData = new Dictionary<string, bool>();
 	/**
 	 * Key-Value data that will feed the GOAP actions and system while planning.
 	 */
-	public HashSet<KeyValuePair<string,object>> getWorldState () {
-		HashSet<KeyValuePair<string,object>> worldData = new HashSet<KeyValuePair<string,object>> ();
-
-		worldData.Add(new KeyValuePair<string, object>("hasOre", (backpack.numOre > 0) ));
-		worldData.Add(new KeyValuePair<string, object>("hasLogs", (backpack.numLogs > 0) ));
-		worldData.Add(new KeyValuePair<string, object>("hasFirewood", (backpack.numFirewood > 0) ));
-        worldData.Add(new KeyValuePair<string, object>("hasTool", (backpack.tool != null)));
-        worldData.Add(new KeyValuePair<string, object>("hasMeat", (backpack.numMeat > 0)));
+    public Dictionary<string, bool> getWorldState()
+    {
+        worldData["hasOre"] = backpack.numOre > 0;
+        worldData["hasLogs"] = backpack.numLogs > 0;
+        worldData["hasFirewood"] = backpack.numFirewood > 0;
+        worldData["hasTool"] = backpack.tool != null;
+        worldData["hasMeat"] = backpack.numMeat > 0;
 
 		return worldData;
 	}
@@ -105,6 +105,13 @@ public abstract class Labourer : MonoBehaviour, IGoap
         if (Brain == null)
             Brain = gameObject.GetComponent<Brain>();
         Brain.Init();
+
+        //init world data
+        worldData.Add("hasOre", (backpack.numOre > 0));
+        worldData.Add("hasLogs", (backpack.numLogs > 0));
+        worldData.Add("hasFirewood", (backpack.numFirewood > 0));
+        worldData.Add("hasTool", (backpack.tool != null));
+        worldData.Add("hasMeat", (backpack.numMeat > 0));
     }
 
     public virtual void Tick()

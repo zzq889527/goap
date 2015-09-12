@@ -22,7 +22,7 @@ public interface IGoap
 	 * The starting state of the Agent and the world.
 	 * Supply what states are needed for actions to run.
 	 */
-	HashSet<KeyValuePair<string,object>> getWorldState ();
+	Dictionary<string,bool> getWorldState ();
 
 	/**
 	 * Give the planner a new goal so it can figure out 

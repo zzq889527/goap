@@ -19,7 +19,7 @@ public class TestNumAi : MonoBehaviour
             GameObject go = Instantiate(Target);
             go.name = i.ToString();
             go.SetActive(true);
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(0.1f);
         }
     }
 }
