@@ -18,7 +18,9 @@ public class Brain : MonoBehaviour,IBrain
     public int Mind = 100;
     public void Init()
     {
-        
+        goalsWeight.Add(TagHunger, 0);
+        goalsWeight.Add(TagMind, 0);
+        goalsWeight.Add(TagOther, 0);
     }
 
     private float _costTime = 0;
@@ -38,22 +40,28 @@ public class Brain : MonoBehaviour,IBrain
 
     }
 
-    public HashSet<KeyValuePair<string, object>> NextGoal()
+    Dictionary<GoapTag, int> goalsWeight = new Dictionary<GoapTag, int>();
+    GoapTag TagHunger = new GoapTag(Goals.FillHunger, true);
+    GoapTag TagMind = new GoapTag(Goals.FillMind, true);
+    GoapTag TagOther = new GoapTag(Goals.FillOther, true);
+
+    List<GoapTag> _sortedTags = new List<GoapTag>();
+    public List<GoapTag> NextGoal()
     {
-        Dictionary<string, int> goalsWeight = new Dictionary<string, int>();
-        goalsWeight.Add(Goals.FillHunger, GetHungerWeight());
-        goalsWeight.Add(Goals.FillMind, GetMindWeight());
-        goalsWeight.Add(Goals.FillOther, GetOtherWeight());
+        goalsWeight[TagHunger] = GetHungerWeight();
+        goalsWeight[TagMind] = GetMindWeight();
+        goalsWeight[TagOther] = GetOtherWeight();
+
         var items = from pair in goalsWeight
                     orderby pair.Value descending
                     select pair;
 
-        HashSet<KeyValuePair<string, object>> goal = new HashSet<KeyValuePair<string, object>>();
-        foreach (KeyValuePair<string, int> pair in items)
+        _sortedTags.Clear();
+        foreach (KeyValuePair<GoapTag, int> pair in items)
         {
-            goal.Add(new KeyValuePair<string, object>(pair.Key, true));
+            _sortedTags.Add(pair.Key); 
         }
-        return goal;
+        return _sortedTags;
     }
 
     private int GetOtherWeight()

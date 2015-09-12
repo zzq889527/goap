@@ -66,7 +66,6 @@ public sealed class GoapAgent : MonoBehaviour, IAgent
         return currentActions.Count > 0;
     }
 
-    HashSet<KeyValuePair<string, object>> tempgoal = new HashSet<KeyValuePair<string, object>>();
     private void createIdleState()
     {
         idleState = (fsm, gameObj) =>
@@ -75,16 +74,15 @@ public sealed class GoapAgent : MonoBehaviour, IAgent
 
             // get the world state and the goal we want to plan for
             var worldState = dataProvider.getWorldState();
-            var goal = dataProvider.createGoalState();
+            var goals = dataProvider.createGoalState();
 
             // search enable Plan
             Queue<GoapAction> plan = null;
-            foreach (var g in goal)
+            GoapTag g = GoapTag.Default;
+            for (int i = 0; i < goals.Count; i++)
             {
-                tempgoal.Clear();
-                tempgoal.Add(g);
-
-                plan = planner.plan(gameObject, availableActions, worldState, tempgoal);
+                g = goals[i];
+                plan = planner.plan(gameObject, availableActions, worldState, g);
                 if (plan != null)
                     break;
             }
@@ -92,7 +90,7 @@ public sealed class GoapAgent : MonoBehaviour, IAgent
             {
                 // we have a plan, hooray!
                 currentActions = plan;
-                dataProvider.planFound(goal, plan);
+                dataProvider.planFound(g, plan);
 
                 fsm.popState(); // move to PerformAction state
                 fsm.pushState(performActionState);
@@ -100,8 +98,8 @@ public sealed class GoapAgent : MonoBehaviour, IAgent
             else
             {
                 // ugh, we couldn't get a plan
-                Debug.Log("<color=orange>Failed Plan:</color>" + prettyPrint(goal));
-                dataProvider.planFailed(goal);
+                Debug.Log("<color=orange>Failed Plan:</color>" + prettyPrint(goals));
+                dataProvider.planFailed(goals);
                 fsm.popState(); // move back to IdleAction state
                 fsm.pushState(idleState);
             }
@@ -230,7 +228,7 @@ public sealed class GoapAgent : MonoBehaviour, IAgent
         {
             availableActions.Add(a);
         }
-        Debug.Log("Found actions: " + prettyPrint(actions));
+//        Debug.Log("Found actions: " + prettyPrint(actions));
     }
 
     public static string prettyPrint(HashSet<KeyValuePair<string, object>> state)
@@ -250,6 +248,17 @@ public sealed class GoapAgent : MonoBehaviour, IAgent
         foreach (var a in actions)
         {
             s += a.GetType().Name;
+            s += "-> ";
+        }
+        s += "GOAL";
+        return s;
+    }
+    public static string prettyPrint(List<GoapTag> tags)
+    {
+        var s = "";
+        foreach (var a in tags)
+        {
+            s += a.Name;
             s += "-> ";
         }
         s += "GOAL";

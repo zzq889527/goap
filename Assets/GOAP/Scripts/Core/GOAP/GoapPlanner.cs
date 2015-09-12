@@ -16,7 +16,7 @@ public class GoapPlanner
     public Queue<GoapAction> plan(GameObject agent,
         HashSet<GoapAction> availableActions,
         HashSet<KeyValuePair<string, object>> worldState,
-        HashSet<KeyValuePair<string, object>> goal)
+        GoapTag goal)
     {
         // reset the actions so we can start fresh with them
         foreach (var a in availableActions)
@@ -92,7 +92,7 @@ public class GoapPlanner
 	 */
 
     private bool buildGraph(Node parent, List<Node> leaves
-        , HashSet<GoapAction> usableActions, HashSet<KeyValuePair<string, object>> goal)
+        , HashSet<GoapAction> usableActions, GoapTag goal)
     {
         var foundOne = false;
 
@@ -113,7 +113,7 @@ public class GoapPlanner
                     parent.action != null && !CondRelation(action.Preconditions, parent.action.Effects))
                     continue;
 
-                if (inState(goal, currentState))
+                if (FillGoal(goal, currentState))
                 {
                     // we found a solution!
                     leaves.Add(node);
@@ -193,6 +193,19 @@ public class GoapPlanner
                 allMatch = false;
         }
         return allMatch;
+    }
+    private bool FillGoal(GoapTag goal, HashSet<KeyValuePair<string, object>> state)
+    {
+        var match = false;
+        foreach (var s in state)
+        {
+            if (s.Key == goal.Name && (bool)s.Value == goal.Enable)
+            {
+                match = true;
+                break;
+            }
+        }
+        return match;
     }
 
     /**

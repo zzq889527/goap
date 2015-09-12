@@ -8,7 +8,7 @@ public class Tester : Labourer
      * Our only goal will ever be to make tools.
      * The ForgeTooldAction will be able to fulfill this goal.
      */
-    public override HashSet<KeyValuePair<string, object>> createGoalState()
+    public override List<GoapTag> createGoalState()
     {
         return Brain.NextGoal();
     }
