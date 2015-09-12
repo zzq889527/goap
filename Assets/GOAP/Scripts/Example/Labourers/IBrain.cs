@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public interface IBrain
 {
     void Init();
-    void Tick();
+    void Tick(IGoap goap);
     void Release();
     HashSet<KeyValuePair<string, object>> NextGoal();
 }

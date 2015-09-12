@@ -202,7 +202,7 @@ public class GoapPlanner
     private HashSet<KeyValuePair<string, object>> populateState(HashSet<KeyValuePair<string, object>> currentState,
         HashSet<KeyValuePair<string, object>> stateChange)
     {
-        var state = new HashSet<KeyValuePair<string, object>>();
+        HashSet<KeyValuePair<string, object>> state = new HashSet<KeyValuePair<string, object>>();
         // copy the KVPs over as new objects
         foreach (var s in currentState)
         {

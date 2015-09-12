@@ -103,13 +103,13 @@ public abstract class Labourer : MonoBehaviour, IGoap
         }
 
         if (Brain == null)
-            Brain = gameObject.AddComponent<Brain>();
+            Brain = gameObject.GetComponent<Brain>();
         Brain.Init();
     }
 
     public virtual void Tick()
     {
-        Brain.Tick();
+        Brain.Tick(this);
     }
 
     public virtual void Release()

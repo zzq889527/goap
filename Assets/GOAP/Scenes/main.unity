@@ -87,6 +87,47 @@ NavMeshSettings:
     cellSize: .166666657
     manualCellSize: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &132923887
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 132923889}
+  - 114: {fileID: 132923888}
+  m_Layer: 0
+  m_Name: Performance
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &132923888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 132923887}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6f879d06d5b4ac42b3c97bb491c7c94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Target: {fileID: 186045660}
+  MaxNum: 100
+--- !u!4 &132923889
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 132923887}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.23319483, y: -.159894943, z: -11.2358952}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 15
 --- !u!1 &186045660
 GameObject:
   m_ObjectHideFlags: 0
@@ -106,6 +147,7 @@ GameObject:
   - 114: {fileID: 186045671}
   - 114: {fileID: 186045669}
   - 114: {fileID: 186045670}
+  - 114: {fileID: 186045673}
   m_Layer: 0
   m_Name: Tester
   m_TagString: Untagged
@@ -126,7 +168,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   backpack: {fileID: 186045666}
   moveSpeed: 3
-  EnableLog: 1
+  EnableLog: 0
   NeedAbort: 0
 --- !u!114 &186045662
 MonoBehaviour:
@@ -294,6 +336,19 @@ MonoBehaviour:
   Return: 1
   target: {fileID: 0}
   miningDuration: 2
+--- !u!114 &186045673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 186045660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 060064afb4dabee4787ba35ce63aefe4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Hunger: 100
+  Mind: 100
 --- !u!1001 &186956439
 Prefab:
   m_ObjectHideFlags: 0

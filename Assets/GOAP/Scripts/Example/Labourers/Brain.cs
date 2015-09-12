@@ -22,7 +22,7 @@ public class Brain : MonoBehaviour,IBrain
     }
 
     private float _costTime = 0;
-    public void Tick()
+    public void Tick(IGoap goap)
     {
         _costTime += Time.deltaTime;
         if (_costTime >= 1)

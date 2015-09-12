@@ -66,6 +66,7 @@ public sealed class GoapAgent : MonoBehaviour, IAgent
         return currentActions.Count > 0;
     }
 
+    HashSet<KeyValuePair<string, object>> tempgoal = new HashSet<KeyValuePair<string, object>>();
     private void createIdleState()
     {
         idleState = (fsm, gameObj) =>
@@ -78,7 +79,6 @@ public sealed class GoapAgent : MonoBehaviour, IAgent
 
             // search enable Plan
             Queue<GoapAction> plan = null;
-            HashSet<KeyValuePair<string,object>> tempgoal = new HashSet<KeyValuePair<string, object>>();
             foreach (var g in goal)
             {
                 tempgoal.Clear();
