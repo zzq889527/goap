@@ -44,7 +44,7 @@ public class GoapPlanner
         if (!success)
         {
             // oh no, we didn't get a plan
-            Debug.Log("NO PLAN");
+//            Debug.Log("NO PLAN");
             return null;
         }
 
@@ -192,7 +192,12 @@ public class GoapPlanner
     private Dictionary<string, bool> populateState(Dictionary<string, bool> currentState,
         Dictionary<string, bool> stateChange)
     {
-        Dictionary<string, bool> state = new Dictionary<string, bool>(currentState);
+        Dictionary<string, bool> state = NodeManager.GetFreeState();
+        state.Clear();
+        foreach (var s in currentState)
+        {
+            state.Add(s.Key,s.Value);
+        }
 
         foreach (var change in stateChange)
         {

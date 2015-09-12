@@ -92,8 +92,20 @@ public class NodeManager
         {
             _freeIds.Add(node.ID);
             _freeNodes.Push(node);
+            //save state
+            _freeState.Push(node.state);
         }
         if (node.parent != null)
             ReleaseNode(node.parent);
+    }
+
+    static Stack<Dictionary<string, bool>> _freeState = new Stack<Dictionary<string, bool>>();
+
+    public static Dictionary<string, bool> GetFreeState()
+    {
+        if(_freeState.Count>0)
+            return _freeState.Pop();
+        else
+            return new Dictionary<string, bool>();
     }
 }
