@@ -78,7 +78,5 @@ public class EatMeatAction : GoapAction
             finishEat = true;
         }
         return true;
-		
-		return true;
 	}
 }

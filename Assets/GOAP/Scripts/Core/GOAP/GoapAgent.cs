@@ -78,11 +78,11 @@ public sealed class GoapAgent : MonoBehaviour, IAgent
 
             // search enable Plan
             Queue<GoapAction> plan = null;
-            GoapTag g = GoapTag.Default;
-            for (int i = 0; i < goals.Count; i++)
+            KeyValuePair<string, bool> lastGoal = new KeyValuePair<string, bool>();
+            foreach (var goal in goals)
             {
-                g = goals[i];
-                plan = planner.plan(gameObject, availableActions, worldState, g);
+                lastGoal = goal;
+                plan = planner.plan(gameObject, availableActions, worldState, goal);
                 if (plan != null)
                     break;
             }
@@ -90,7 +90,7 @@ public sealed class GoapAgent : MonoBehaviour, IAgent
             {
                 // we have a plan, hooray!
                 currentActions = plan;
-                dataProvider.planFound(g, plan);
+                dataProvider.planFound(lastGoal, plan);
 
                 fsm.popState(); // move to PerformAction state
                 fsm.pushState(performActionState);
@@ -253,12 +253,12 @@ public sealed class GoapAgent : MonoBehaviour, IAgent
         s += "GOAL";
         return s;
     }
-    public static string prettyPrint(List<GoapTag> tags)
+    public static string prettyPrint(Dictionary<string, bool> goals)
     {
         var s = "";
-        foreach (var a in tags)
+        foreach (var a in goals)
         {
-            s += a.Name;
+            s += a.Key;
             s += "-> ";
         }
         s += "GOAL";

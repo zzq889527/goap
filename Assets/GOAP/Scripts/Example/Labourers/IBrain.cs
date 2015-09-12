@@ -7,5 +7,5 @@ public interface IBrain
     void Init();
     void Tick(IGoap goap);
     void Release();
-    List<GoapTag> NextGoal();
+    Dictionary<string,bool> NextGoal();
 }

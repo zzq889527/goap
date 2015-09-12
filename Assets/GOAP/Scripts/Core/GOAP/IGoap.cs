@@ -28,19 +28,19 @@ public interface IGoap
 	 * Give the planner a new goal so it can figure out 
 	 * the actions needed to fulfill it.
 	 */
-    List<GoapTag> createGoalState();
+    Dictionary<string, bool> createGoalState();
 
 	/**
 	 * No sequence of actions could be found for the supplied goal.
 	 * You will need to try another goal
 	 */
-    void planFailed(List<GoapTag> failedGoal);
+    void planFailed(Dictionary<string, bool> failedGoal);
 
 	/**
 	 * A plan was found for the supplied goal.
 	 * These are the actions the Agent will perform, in order.
 	 */
-	void planFound (GoapTag goal, Queue<GoapAction> actions);
+	void planFound (KeyValuePair<string,bool> goal, Queue<GoapAction> actions);
 
 	/**
 	 * All actions are complete and the goal was reached. Hooray!

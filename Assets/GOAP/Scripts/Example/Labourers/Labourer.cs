@@ -44,17 +44,17 @@ public abstract class Labourer : MonoBehaviour, IGoap
 	/**
 	 * Implement in subclasses
 	 */
-    public abstract List<GoapTag> createGoalState();
+    public abstract Dictionary<string, bool> createGoalState();
 
 
-    public void planFailed(List<GoapTag> failedGoal)
+    public void planFailed(Dictionary<string, bool> failedGoal)
 	{
 		// Not handling this here since we are making sure our goals will always succeed.
 		// But normally you want to make sure the world state has changed before running
 		// the same goal again, or else it will just fail.
 	}
 
-    public void planFound(GoapTag goal, Queue<GoapAction> actions)
+    public void planFound(KeyValuePair<string, bool> goal, Queue<GoapAction> actions)
 	{
 		// Yay we found a plan for our goal
         if (EnableLog)
