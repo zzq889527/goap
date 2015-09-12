@@ -10,7 +10,8 @@ public class DropOffToolsAction : GoapAction
 	public DropOffToolsAction () {
 		addPrecondition ("hasNewTools", true); // can't drop off tools if we don't already have some
 		addEffect ("hasNewTools", false); // we now have no tools
-		addEffect ("collectTools", true); // we collected tools
+        addEffect("collectTools", true); // we collected tools
+        addEffect(Goals.FillOther, true); // we collected ore
 	}
 	
 	

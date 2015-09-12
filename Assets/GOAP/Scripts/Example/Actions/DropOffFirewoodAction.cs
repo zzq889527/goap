@@ -10,7 +10,8 @@ public class DropOffFirewoodAction : GoapAction
 	public DropOffFirewoodAction () {
 		addPrecondition ("hasFirewood", true); // can't drop off firewood if we don't already have some
 		addEffect ("hasFirewood", false); // we now have no firewood
-		addEffect ("collectFirewood", true); // we collected firewood
+        addEffect("collectFirewood", true); // we collected firewood
+        addEffect(Goals.FillOther, true); // we collected ore
 	}
 	
 	

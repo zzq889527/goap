@@ -10,7 +10,8 @@ public class DropOffLogsAction: GoapAction
 	public DropOffLogsAction () {
 		addPrecondition ("hasLogs", true); // can't drop off logs if we don't already have some
 		addEffect ("hasLogs", false); // we now have no logs
-		addEffect ("collectLogs", true); // we collected logs
+        addEffect("collectLogs", true); // we collected logs
+        addEffect(Goals.FillOther, true); // we collected ore
 	}
 	
 	

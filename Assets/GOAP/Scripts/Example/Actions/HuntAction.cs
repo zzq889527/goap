@@ -14,7 +14,11 @@ public class HuntAction : GoapAction
 		addPrecondition ("hasTool", true); // we need a tool to do this
 		addEffect ("hasMeat", true);
 	}
-	
+
+    public override float GetWeight()
+    {
+        return (1 - (targetWolf==null?Risk:targetWolf.HuntRisk)) * Return;
+    }
 	
 	public override void reset ()
 	{
@@ -78,12 +82,17 @@ public class HuntAction : GoapAction
 			BackpackComponent backpack = (BackpackComponent)agent.GetComponent(typeof(BackpackComponent));
             backpack.numMeat += 3;
 			finishHunt = true;
-			ToolComponent tool = backpack.tool.GetComponent(typeof(ToolComponent)) as ToolComponent;
-			tool.use(0.5f);
-			if (tool.destroyed()) {
-				Destroy(backpack.tool);
-				backpack.tool = null;
-			}
+
+		    if (backpack.tool == null)
+            {
+                ToolComponent tool = backpack.tool.GetComponent(typeof(ToolComponent)) as ToolComponent;
+                tool.use(0.5f);
+                if (tool.destroyed())
+                {
+                    Destroy(backpack.tool);
+                    backpack.tool = null;
+                } 
+		    }
 		}
 		return true;
 	}
