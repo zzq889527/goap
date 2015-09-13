@@ -41,6 +41,13 @@ public abstract class Labourer : MonoBehaviour, IGoap
 		return worldData;
 	}
 
+    BlackBoard bb = new BlackBoard();
+
+    public BlackBoard GetBlackBoard()
+    {
+        return bb;
+    }
+
 	/**
 	 * Implement in subclasses
 	 */
@@ -112,6 +119,18 @@ public abstract class Labourer : MonoBehaviour, IGoap
         worldData.Add("hasFirewood", (backpack.numFirewood > 0));
         worldData.Add("hasTool", (backpack.tool != null));
         worldData.Add("hasMeat", (backpack.numMeat > 0));
+
+        //init blackboard
+        bb.AddData("backpack", backpack);
+        bb.AddData("brain", Brain);
+        bb.AddData("ironRock", FindObjectsOfType(typeof(IronRockComponent)));
+        bb.AddData("appleTree", FindObjectsOfType(typeof(AppleTreeComponet)));
+        bb.AddData("forge", FindObjectsOfType(typeof(ForgeComponent)));
+        bb.AddData("tree", FindObjectsOfType(typeof(TreeComponent)));
+        bb.AddData("wolfDen", FindObjectsOfType(typeof(WolfDen)));
+        bb.AddData("choppingBlock", FindObjectsOfType(typeof(ChoppingBlockComponent)));
+        bb.AddData("supplyPiles", FindObjectsOfType(typeof(SupplyPileComponent)));
+        bb.AddData("camp", FindObjectsOfType(typeof(CampComponent)));
     }
 
     public virtual void Tick()

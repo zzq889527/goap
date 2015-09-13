@@ -20,7 +20,7 @@ public class TestNumAi : MonoBehaviour
             go.name = i.ToString();
             go.SetActive(true);
             AddRandomWork(go);
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.01f);
         }
     }
 

@@ -16,7 +16,8 @@ public class GoapPlanner
     public Queue<GoapAction> plan(GameObject agent,
         HashSet<GoapAction> availableActions,
         Dictionary<string, bool> worldState,
-        KeyValuePair<string, bool> goal)
+        KeyValuePair<string, bool> goal,
+        IGoap goap)
     {
         // reset the actions so we can start fresh with them
         foreach (var a in availableActions)
@@ -25,10 +26,10 @@ public class GoapPlanner
         }
 
         // check what actions can run using their checkProceduralPrecondition
-        var usableActions = new HashSet<GoapAction>();
+        var usableActions = NodeManager.GetFreeActionSet();
         foreach (var a in availableActions)
         {
-            if (a.checkProceduralPrecondition(agent))
+            if (a.checkProceduralPrecondition(agent, goap.GetBlackBoard()))
                 usableActions.Add(a);
         }
 
@@ -73,7 +74,7 @@ public class GoapPlanner
             n = n.parent;
         }
 
-        NodeManager.ReleaseNode(leaves);
+        NodeManager.Release();
         // we now have this action list in correct order
 
         var queue = new Queue<GoapAction>();
@@ -154,7 +155,7 @@ public class GoapPlanner
 
     private HashSet<GoapAction> actionSubset(HashSet<GoapAction> actions, GoapAction removeMe)
     {
-        var subset = new HashSet<GoapAction>();
+        var subset = NodeManager.GetFreeActionSet();
         foreach (var a in actions)
         {
             if (!a.Equals(removeMe))
@@ -175,7 +176,10 @@ public class GoapPlanner
         {
             var match = state.ContainsKey(t.Key) && state[t.Key] == t.Value;
             if (!match)
+            {
                 allMatch = false;
+                break;
+            }
         }
         return allMatch;
     }

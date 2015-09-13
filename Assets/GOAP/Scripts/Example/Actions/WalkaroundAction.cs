@@ -27,7 +27,7 @@ public class WalkaroundAction : GoapAction
 		return true;
 	}
 	
-	public override bool checkProceduralPrecondition (GameObject agent)
+	public override bool checkProceduralPrecondition (GameObject agent,BlackBoard bb)
 	{
 	    if (_walkTarget == null)
         {
@@ -46,7 +46,7 @@ public class WalkaroundAction : GoapAction
         _walkTarget.transform.position += new Vector3(Random.Range(-5, 5), 0, Random.Range(-5, 5)); 
     }
 	
-	public override bool perform (GameObject agent)
+	public override bool perform(GameObject agent, BlackBoard bb)
 	{
 	    RandomTarget(agent);
 

@@ -34,10 +34,10 @@ public class ChopFirewoodAction : GoapAction
 		return true; // yes we need to be near a chopping block
 	}
 	
-	public override bool checkProceduralPrecondition (GameObject agent)
+	public override bool checkProceduralPrecondition (GameObject agent,BlackBoard bb)
 	{
 		// find the nearest chopping block that we can chop our wood at
-		ChoppingBlockComponent[] blocks = (ChoppingBlockComponent[]) UnityEngine.GameObject.FindObjectsOfType ( typeof(ChoppingBlockComponent) );
+        ChoppingBlockComponent[] blocks = (ChoppingBlockComponent[])bb.GetData("choppingBlock");
 		ChoppingBlockComponent closest = null;
 		float closestDist = 0;
 		
@@ -64,15 +64,15 @@ public class ChopFirewoodAction : GoapAction
 		
 		return closest != null;
 	}
-	
-	public override bool perform (GameObject agent)
+
+    public override bool perform(GameObject agent, BlackBoard bb)
 	{
 		if (startTime == 0)
 			startTime = Time.time;
 		
 		if (Time.time - startTime > workDuration) {
 			// finished chopping
-			BackpackComponent backpack = (BackpackComponent)agent.GetComponent(typeof(BackpackComponent));
+			BackpackComponent backpack = (BackpackComponent)bb.GetData("backpack");
 			backpack.numFirewood += 5;
 			chopped = true;
 			ToolComponent tool = backpack.tool.GetComponent(typeof(ToolComponent)) as ToolComponent;

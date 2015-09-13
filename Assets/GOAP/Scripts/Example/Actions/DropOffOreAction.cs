@@ -31,10 +31,10 @@ public class DropOffOreAction : GoapAction
 		return true; // yes we need to be near a supply pile so we can drop off the ore
 	}
 	
-	public override bool checkProceduralPrecondition (GameObject agent)
+	public override bool checkProceduralPrecondition (GameObject agent,BlackBoard bb)
 	{
 		// find the nearest supply pile that has spare ore
-		SupplyPileComponent[] supplyPiles = (SupplyPileComponent[]) UnityEngine.GameObject.FindObjectsOfType ( typeof(SupplyPileComponent) );
+        SupplyPileComponent[] supplyPiles = (SupplyPileComponent[])bb.GetData("supplyPiles");
 		SupplyPileComponent closest = null;
 		float closestDist = 0;
 		
@@ -62,7 +62,7 @@ public class DropOffOreAction : GoapAction
 		return closest != null;
 	}
 	
-	public override bool perform (GameObject agent)
+	public override bool perform(GameObject agent, BlackBoard bb)
 	{
 		BackpackComponent backpack = (BackpackComponent)agent.GetComponent(typeof(BackpackComponent));
 		targetSupplyPile.numOre += backpack.numOre;

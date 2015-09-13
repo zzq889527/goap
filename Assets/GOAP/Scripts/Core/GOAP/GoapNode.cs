@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 /**
  * Used for building up the graph and holding the running costs of actions.
@@ -63,49 +64,84 @@ public class GoapNode
 
 public class NodeManager
 {
-    static List<int> _freeIds = new List<int>();
+    static Stack<GoapNode> _usedNodes = new Stack<GoapNode>();
     static Stack<GoapNode> _freeNodes = new Stack<GoapNode>();
     public static GoapNode GetFreeNode(GoapNode parent, float runningCost, float weight, Dictionary<string, bool> state,
         GoapAction action)
     {
+        GoapNode free = null;
         if(_freeNodes.Count <= 0)
-            return new GoapNode(parent,runningCost,weight,state,action);
+            free= new GoapNode(parent,runningCost,weight,state,action);
         else
         {
-            GoapNode free = _freeNodes.Pop();
-            _freeIds.Remove(free.ID);
+            free = _freeNodes.Pop();
             free.ReInit(parent, runningCost, weight, state, action);
-            return free;
         }
+
+        _usedNodes.Push(free);
+        return free;
     }
 
-    public static void ReleaseNode(List<GoapNode> leaves)
+    public static void ReleaseNode()
     {
-        foreach (var leaf in leaves)
+        while (_usedNodes.Count > 0)
         {
-            ReleaseNode(leaf);
+            _freeNodes.Push(_usedNodes.Pop());
         }
     }
-    public static void ReleaseNode(GoapNode node)
-    {
-        if (!_freeIds.Contains(node.ID))
-        {
-            _freeIds.Add(node.ID);
-            _freeNodes.Push(node);
-            //save state
-            _freeState.Push(node.state);
-        }
-        if (node.parent != null)
-            ReleaseNode(node.parent);
-    }
-
+    static Stack<Dictionary<string, bool>> _usedState = new Stack<Dictionary<string, bool>>();
     static Stack<Dictionary<string, bool>> _freeState = new Stack<Dictionary<string, bool>>();
 
     public static Dictionary<string, bool> GetFreeState()
     {
+        Dictionary<string, bool> free = null;
         if(_freeState.Count>0)
-            return _freeState.Pop();
+            free= _freeState.Pop();
         else
-            return new Dictionary<string, bool>();
+            free = new Dictionary<string, bool>();
+
+        _usedState.Push(free);
+        return free;
+    }
+
+    private static void ReleaseState()
+    {
+        while (_usedState.Count > 0)
+        {
+            _freeState.Push(_usedState.Pop());
+        }
+    }
+
+    static Stack<HashSet<GoapAction>> _usedSubset = new Stack<HashSet<GoapAction>>();
+    static Stack<HashSet<GoapAction>> _freeSubset = new Stack<HashSet<GoapAction>>();
+
+    public static HashSet<GoapAction> GetFreeActionSet()
+    {
+        HashSet<GoapAction> free = null;
+        if (_freeSubset.Count > 0)
+        {
+            free = _freeSubset.Pop();
+            free.Clear();
+        }
+        else
+            free = new HashSet<GoapAction>();
+
+        _usedSubset.Push(free);
+        return free;
+    }
+
+    private static void ReleaseSubset()
+    {
+        while (_usedSubset.Count > 0)
+        {
+            _freeSubset.Push(_usedSubset.Pop());
+        }
+    }
+
+    public static void Release()
+    {
+        ReleaseNode();
+        ReleaseState();
+        ReleaseSubset();
     }
 }

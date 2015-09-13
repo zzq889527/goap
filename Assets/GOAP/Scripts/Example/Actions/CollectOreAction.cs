@@ -33,10 +33,10 @@ public class CollectOreAction : GoapAction
 		return true; // yes we need to be near a rock
 	}
 	
-	public override bool checkProceduralPrecondition (GameObject agent)
+	public override bool checkProceduralPrecondition (GameObject agent,BlackBoard bb)
 	{
 		// find the nearest rock that we can mine
-		IronRockComponent[] rocks = FindObjectsOfType ( typeof(IronRockComponent) ) as IronRockComponent[];
+        IronRockComponent[] rocks = bb.GetData("ironRock") as IronRockComponent[];
 		IronRockComponent closest = null;
 		float closestDist = 0;
 		
@@ -60,8 +60,8 @@ public class CollectOreAction : GoapAction
 		
 		return closest != null;
 	}
-	
-	public override bool perform (GameObject agent)
+
+    public override bool perform(GameObject agent, BlackBoard bb)
 	{
 		if (startTime == 0)
 			startTime = Time.time;

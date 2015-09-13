@@ -31,10 +31,10 @@ public class DropOffLogsAction: GoapAction
 		return true; // yes we need to be near a supply pile so we can drop off the logs
 	}
 	
-	public override bool checkProceduralPrecondition (GameObject agent)
+	public override bool checkProceduralPrecondition (GameObject agent,BlackBoard bb)
 	{
 		// find the nearest supply pile
-		SupplyPileComponent[] supplyPiles = (SupplyPileComponent[]) UnityEngine.GameObject.FindObjectsOfType ( typeof(SupplyPileComponent) );
+        SupplyPileComponent[] supplyPiles = (SupplyPileComponent[])bb.GetData("supplyPiles");
 		SupplyPileComponent closest = null;
 		float closestDist = 0;
 		
@@ -62,7 +62,7 @@ public class DropOffLogsAction: GoapAction
 		return closest != null;
 	}
 	
-	public override bool perform (GameObject agent)
+	public override bool perform(GameObject agent, BlackBoard bb)
 	{
 		BackpackComponent backpack = (BackpackComponent)agent.GetComponent(typeof(BackpackComponent));
 		targetSupplyPile.numLogs += backpack.numLogs;

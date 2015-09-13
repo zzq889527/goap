@@ -30,6 +30,12 @@ public interface IGoap
 	 */
     Dictionary<string, bool> createGoalState();
 
+
+    /**
+     * Get blackboard for environment
+     */
+    BlackBoard GetBlackBoard();
+
 	/**
 	 * No sequence of actions could be found for the supplied goal.
 	 * You will need to try another goal

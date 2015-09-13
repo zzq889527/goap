@@ -29,10 +29,10 @@ public class PickUpOreAction : GoapAction
 		return true; // yes we need to be near a supply pile so we can pick up the ore
 	}
 	
-	public override bool checkProceduralPrecondition (GameObject agent)
+	public override bool checkProceduralPrecondition (GameObject agent,BlackBoard bb)
 	{
 		// find the nearest supply pile that has spare ores
-		SupplyPileComponent[] supplyPiles = (SupplyPileComponent[]) UnityEngine.GameObject.FindObjectsOfType ( typeof(SupplyPileComponent) );
+        SupplyPileComponent[] supplyPiles = (SupplyPileComponent[])bb.GetData("supplyPiles");
 		SupplyPileComponent closest = null;
 		float closestDist = 0;
 		
@@ -62,7 +62,7 @@ public class PickUpOreAction : GoapAction
 		return closest != null;
 	}
 	
-	public override bool perform (GameObject agent)
+	public override bool perform(GameObject agent, BlackBoard bb)
 	{
 		if (targetSupplyPile.numOre >= 3) {
 			targetSupplyPile.numOre -= 3;

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Linq;
 
 public class SleepAction : GoapAction
 {
@@ -23,17 +24,17 @@ public class SleepAction : GoapAction
         return sleeped;
     }
 
-    public override bool checkProceduralPrecondition(GameObject agent)
+    public override bool checkProceduralPrecondition(GameObject agent, BlackBoard bb)
     {
-        CampComponent c = UnityEngine.GameObject.FindObjectOfType(typeof(CampComponent)) as CampComponent;
-        if (c == null)
+        CampComponent[] c = bb.GetData("camp") as CampComponent[];
+        if (c == null || c.Length <= 0)
             return false;
-        camp = c;
+        camp = c[0];
         target = camp.gameObject;
         return camp != null;
     }
 
-    public override bool perform(GameObject agent)
+    public override bool perform(GameObject agent, BlackBoard bb)
     {
         if (startTime == 0)
             startTime = Time.time;
@@ -41,7 +42,7 @@ public class SleepAction : GoapAction
         if (Time.time - startTime > workDuration)
         {
             // finished chopping
-            Brain brain = (Brain)agent.GetComponent(typeof(Brain));
+            Brain brain = bb.GetData("brain") as Brain;
             brain.Mind+=50;
             sleeped = true;
         }

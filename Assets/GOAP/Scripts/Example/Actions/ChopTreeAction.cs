@@ -34,10 +34,10 @@ public class ChopTreeAction : GoapAction
 		return true; // yes we need to be near a tree
 	}
 	
-	public override bool checkProceduralPrecondition (GameObject agent)
+	public override bool checkProceduralPrecondition (GameObject agent,BlackBoard bb)
 	{
 		// find the nearest tree that we can chop
-		TreeComponent[] trees = (TreeComponent[]) UnityEngine.GameObject.FindObjectsOfType ( typeof(TreeComponent) );
+		TreeComponent[] trees = (TreeComponent[]) bb.GetData("tree");
 		TreeComponent closest = null;
 		float closestDist = 0;
 		
@@ -64,8 +64,8 @@ public class ChopTreeAction : GoapAction
 		
 		return closest != null;
 	}
-	
-	public override bool perform (GameObject agent)
+
+    public override bool perform(GameObject agent, BlackBoard bb)
 	{
 		if (startTime == 0)
 			startTime = Time.time;

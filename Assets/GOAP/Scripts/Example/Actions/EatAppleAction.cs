@@ -24,10 +24,10 @@ public class EatAppleAction : GoapAction
         return eated;
     }
 
-    public override bool checkProceduralPrecondition(GameObject agent)
+    public override bool checkProceduralPrecondition(GameObject agent, BlackBoard bb)
     {
         // find the nearest tree that we can chop
-        AppleTreeComponet[] trees = (AppleTreeComponet[])UnityEngine.GameObject.FindObjectsOfType(typeof(AppleTreeComponet));
+        AppleTreeComponet[] trees = (AppleTreeComponet[])bb.GetData("appleTree");
         AppleTreeComponet closest = null;
         float closestDist = 0;
 
@@ -60,7 +60,7 @@ public class EatAppleAction : GoapAction
         return closest != null && closest.AppleNum > 0;
     }
 
-    public override bool perform(GameObject agent)
+    public override bool perform(GameObject agent, BlackBoard bb)
     {
         if (startTime == 0)
             startTime = Time.time;

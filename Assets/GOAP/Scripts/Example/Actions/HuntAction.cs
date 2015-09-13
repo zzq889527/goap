@@ -37,9 +37,9 @@ public class HuntAction : GoapAction
 		return true; // yes we need to be near a rock
 	}
 	
-	public override bool checkProceduralPrecondition (GameObject agent)
+	public override bool checkProceduralPrecondition (GameObject agent,BlackBoard bb)
 	{
-        WolfDen[] dens = FindObjectsOfType(typeof(WolfDen)) as WolfDen[];
+        WolfDen[] dens = bb.GetData("wolfDen") as WolfDen[];
         WolfDen closest = null;
 		float closestDist = 0;
 
@@ -70,7 +70,7 @@ public class HuntAction : GoapAction
 		return closest != null;
 	}
 	
-	public override bool perform (GameObject agent)
+	public override bool perform(GameObject agent, BlackBoard bb)
 	{
 		if (startTime == 0)
 			startTime = Time.time;

@@ -33,10 +33,10 @@ public class ForgeToolAction : GoapAction
 		return true; // yes we need to be near a forge
 	}
 	
-	public override bool checkProceduralPrecondition (GameObject agent)
+	public override bool checkProceduralPrecondition (GameObject agent,BlackBoard bb)
 	{
 		// find the nearest forge
-		ForgeComponent[] forges = (ForgeComponent[]) UnityEngine.GameObject.FindObjectsOfType ( typeof(ForgeComponent) );
+		ForgeComponent[] forges = (ForgeComponent[]) bb.GetData("forge");
 		ForgeComponent closest = null;
 		float closestDist = 0;
 		
@@ -64,7 +64,7 @@ public class ForgeToolAction : GoapAction
 		return closest != null;
 	}
 	
-	public override bool perform (GameObject agent)
+	public override bool perform(GameObject agent, BlackBoard bb)
 	{
 		if (startTime == 0)
 			startTime = Time.time;

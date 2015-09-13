@@ -31,10 +31,10 @@ public class DropOffToolsAction : GoapAction
 		return true; // yes we need to be near a supply pile so we can drop off the tools
 	}
 	
-	public override bool checkProceduralPrecondition (GameObject agent)
+	public override bool checkProceduralPrecondition (GameObject agent,BlackBoard bb)
 	{
 		// find the nearest supply pile that has spare tools
-		SupplyPileComponent[] supplyPiles = (SupplyPileComponent[]) UnityEngine.GameObject.FindObjectsOfType ( typeof(SupplyPileComponent) );
+        SupplyPileComponent[] supplyPiles = (SupplyPileComponent[])bb.GetData("supplyPiles");
 		SupplyPileComponent closest = null;
 		float closestDist = 0;
 		
@@ -62,7 +62,7 @@ public class DropOffToolsAction : GoapAction
 		return closest != null;
 	}
 	
-	public override bool perform (GameObject agent)
+	public override bool perform(GameObject agent, BlackBoard bb)
 	{
 		targetSupplyPile.numTools += 2;
 		droppedOffTools = true;

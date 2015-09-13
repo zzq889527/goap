@@ -82,7 +82,7 @@ public sealed class GoapAgent : MonoBehaviour, IAgent
             foreach (var goal in goals)
             {
                 lastGoal = goal;
-                plan = planner.plan(gameObject, availableActions, worldState, goal);
+                plan = planner.plan(gameObject, availableActions, worldState, goal,dataProvider);
                 if (plan != null)
                     break;
             }
@@ -181,7 +181,7 @@ public sealed class GoapAgent : MonoBehaviour, IAgent
                 if (inRange)
                 {
                     // we are in range, so perform the action
-                    var success = action.perform(gameObj);
+                    var success = action.perform(gameObj,dataProvider.GetBlackBoard());
 
                     if (!success)
                     {
