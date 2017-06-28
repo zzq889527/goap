@@ -42,12 +42,21 @@ public abstract class GoapAction : MonoBehaviour {
 		inRange = false;
 		target = null;
 		reset ();
-	}
+    }
 
-	/**
+    /// <summary>
+    /// 获取目标坐标
+    /// </summary>
+    /// <returns></returns>
+    public virtual Vector3 GetTargetPos()
+    {
+        return target.transform.position;
+    }
+
+    /**
 	 * Reset any variables that need to be reset before planning happens again.
 	 */
-	public abstract void reset();
+    public abstract void reset();
 
 	/**
 	 * Is the action done?

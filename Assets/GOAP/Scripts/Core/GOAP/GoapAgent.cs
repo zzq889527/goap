@@ -113,15 +113,15 @@ public sealed class GoapAgent : MonoBehaviour, IAgent
             // move the game object
 
             var action = currentActions.Peek();
-            if (action.requiresInRange() && action.target == null)
-            {
-                Debug.Log(
-                    "<color=red>Fatal error:</color> Action requires a target but has none. Planning failed. You did not assign the target in your Action.checkProceduralPrecondition()");
-                fsm.popState(); // move
-                fsm.popState(); // perform
-                fsm.pushState(idleState);
-                return;
-            }
+//            if (action.requiresInRange() && action.target == null)
+//            {
+//                Debug.Log(
+//                    "<color=red>Fatal error:</color> Action requires a target but has none. Planning failed. You did not assign the target in your Action.checkProceduralPrecondition()");
+//                fsm.popState(); // move
+//                fsm.popState(); // perform
+//                fsm.pushState(idleState);
+//                return;
+//            }
 
             // get the agent to move itself
             if (dataProvider.moveAgent(action))
